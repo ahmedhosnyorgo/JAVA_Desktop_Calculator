@@ -1,33 +1,5 @@
 type: edu
 files:
-- name: src/calculator/ApplicationRunner.java
-  visible: true
-  text: |
-    package calculator;
-
-    public class ApplicationRunner {
-        public static void main(String[] args) {
-            new Calculator();
-        }
-    }
-  learner_created: false
-- name: src/calculator/Calculator.java
-  visible: true
-  text: |
-    package calculator;
-
-    import javax.swing.*;
-
-    public class Calculator extends JFrame {
-
-        public Calculator() {
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setSize(300, 400);
-            setLayout(null);
-            setVisible(true);
-        }
-    }
-  learner_created: false
 - name: test/CalculatorTest.java
   visible: false
   text: |-
@@ -311,6 +283,84 @@ files:
 
     }
   learner_created: false
+- name: src/calculator/InputTokenizer.java
+  visible: true
+  text: |
+    package calculator;
+
+    public class InputTokenizer {
+        private InputTokenizer() {
+        }
+
+        static String tokenize(String input) {
+            return input.trim()
+                    .replaceAll("[\u002B]", " + ")
+                    .replaceAll("[-]", " - ")
+                    .replaceAll("[\u00D7]", " * ")
+                    .replaceAll("[\u00F7]", " / ")
+                    .replaceAll("[\\^]", " ^ ")
+                    .replaceAll("[(]", " ( ")
+                    .replaceAll("[)]", " ) ")
+                    .replaceAll("[=]", " = ")
+                    .replaceAll("\\s+", " ");
+        }
+    }
+  learner_created: true
+- name: src/calculator/LowCalculator.java
+  visible: true
+  text: |-
+    package calculator;
+
+    import java.math.BigDecimal;
+    import java.math.RoundingMode;
+
+    public class LowCalculator {
+        private LowCalculator() {
+        }
+
+        static BigDecimal calc(BigDecimal fstNum, BigDecimal sndNum, String operation) {
+            return switch (operation) {
+                case "+" -> fstNum.add(sndNum);
+                case "-" -> fstNum.subtract(sndNum);
+                case "*" -> fstNum.multiply(sndNum);
+                case "/" -> fstNum.divide(sndNum, 2, RoundingMode.DOWN);
+                case "^" -> fstNum.pow(sndNum.intValue());
+                default -> throw new IllegalArgumentException();
+            };
+        }
+    }
+  learner_created: true
+- name: src/calculator/ApplicationRunner.java
+  visible: true
+  text: |
+    package calculator;
+
+    public class ApplicationRunner {
+        public static void main(String[] args) {
+            new Calculator();
+        }
+    }
+  learner_created: false
+- name: src/calculator/Calculator.java
+  visible: true
+  text: |
+    package calculator;
+
+    import javax.swing.*;
+
+    public class Calculator extends JFrame {
+
+        public Calculator() {
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setSize(300, 400);
+            setLayout(null);
+            setVisible(true);
+        }
+    }
+  learner_created: false
 feedback_link: https://hyperskill.org/projects/191/stages/956/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Fri, 08 Apr 2022 18:41:55 UTC
 record: -1

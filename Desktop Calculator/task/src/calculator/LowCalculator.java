@@ -12,7 +12,13 @@ public class LowCalculator {
             case "+" -> fstNum.add(sndNum);
             case "-" -> fstNum.subtract(sndNum);
             case "*" -> fstNum.multiply(sndNum);
-            case "/" -> fstNum.divide(sndNum, 2, RoundingMode.DOWN);
+            case "/" -> {
+                try {
+                    yield fstNum.divide(sndNum, 2, RoundingMode.DOWN);
+                } catch (ArithmeticException e) {
+                    yield null;
+                }
+            }
             case "^" -> fstNum.pow(sndNum.intValue());
             default -> throw new IllegalArgumentException();
         };

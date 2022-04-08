@@ -5,6 +5,8 @@ import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Calculator extends JFrame {
     transient SmartCalculator smartCalculator = new SmartCalculator();
@@ -12,6 +14,9 @@ public class Calculator extends JFrame {
     JLabel resultLabel = new JLabel();
 
     private final transient List<String> operation = List.of("\u002B", "-", "\u00D7", "\u00F7");
+
+    Pattern afterDecimal = Pattern.compile("\\d+\\.");
+    Pattern beforeDecimal = Pattern.compile("\\.\\d+");
 
     public Calculator() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -149,7 +154,14 @@ public class Calculator extends JFrame {
         for (var button : buttons) {
             button.addActionListener(e -> {
                 if (operation.contains(button.getText())) {
-                    equationLabel.setText(equationLabel.getText() + button.getText());
+                    if (equationLabel.getText().length() != 0) {
+                        if (operation.contains(String.valueOf(equationLabel.getText().charAt(equationLabel.getText().length() - 1)))) {
+                            equationLabel.setText(equationLabel.getText().substring(0, equationLabel.getText().length() - 1));
+                        }
+                        formatEquation();
+                        equationLabel.setText(equationLabel.getText() + button.getText());
+                        equationLabel.setForeground(Color.RED.darker());
+                    }
                 } else {
                     if (equationLabel.getText().equals("0")) {
                         equationLabel.setText("-");
@@ -157,6 +169,7 @@ public class Calculator extends JFrame {
                     } else {
                         equationLabel.setText(equationLabel.getText() + button.getText());
                     }
+                    equationLabel.setForeground(Color.BLACK);
                 }
 
             });
@@ -171,9 +184,13 @@ public class Calculator extends JFrame {
         });
 
         equalsButton.addActionListener(e -> {
-
-            if (getResult() != null) {
-                resultLabel.setText(getResult());
+            if (!operation.contains(String.valueOf(equationLabel.getText().charAt(equationLabel.getText().length() - 1)))) {
+                var result = getResult();
+                if (result != null) {
+                    resultLabel.setText(getResult());
+                } else {
+                    equationLabel.setForeground(Color.red.darker());
+                }
             }
         });
     }
@@ -199,5 +216,51 @@ public class Calculator extends JFrame {
             }
         }
         return null;
+    }
+
+    void formatEquation() {
+        String equation = equationLabel.getText();
+        String lastNum = "";
+        int lastNumStart = -1;
+        boolean containsOperation = equation.contains("-") || equation.contains("\u002B") || equation.contains("\u00D7") || equation.contains("\u00F7");
+        if (!containsOperation) {
+            lastNum = equation;
+        } else {
+            lastNumStart = lastNumStart();
+            if (lastNumStart != -1) {
+                lastNum = equation.substring(lastNumStart + 1);
+            }
+        }
+        Matcher beforeDecimalMatcher = beforeDecimal.matcher(lastNum);
+        Matcher afterDecimalMatcher = afterDecimal.matcher(lastNum);
+        if (afterDecimalMatcher.matches()) {
+            lastNum = lastNum + "0";
+        } else if (beforeDecimalMatcher.matches()) {
+            lastNum = "0" + lastNum;
+        }
+        if (!containsOperation) {
+            equationLabel.setText(lastNum);
+        } else {
+            if (lastNumStart != -1) {
+                String str = equationLabel.getText().substring(0, lastNumStart + 1) + lastNum;
+                equationLabel.setText(str);
+            }
+        }
+    }
+
+    int lastNumStart() {
+        String equation = equationLabel.getText();
+        int lastNumStart;
+        lastNumStart = equation.lastIndexOf("\u002B");
+        if (lastNumStart == -1) {
+            lastNumStart = equation.lastIndexOf("-");
+        }
+        if (lastNumStart == -1) {
+            lastNumStart = equation.lastIndexOf("\u00D7");
+        }
+        if (lastNumStart == -1) {
+            lastNumStart = equation.lastIndexOf("\u00F7");
+        }
+        return lastNumStart;
     }
 }
