@@ -1,7 +1,7 @@
 package calculator;
 
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.Map;
 
 public class IdentifierChecker {
@@ -10,7 +10,7 @@ public class IdentifierChecker {
 
     static boolean checkIdentifiers(String identifiers) {
         for (var identifier : identifiers.split(" ")) {
-            if (identifier.matches(".*[a-wy-zA-WY-Z].*") && !checkIdentifier(identifier)) {
+            if (identifier.matches(".*[a-zA-Z].*") && !checkIdentifier(identifier)) {
                 return false;
             }
         }
@@ -18,12 +18,12 @@ public class IdentifierChecker {
     }
 
     static boolean checkIdentifier(String identifier) {
-        return identifier.matches("[a-wy-zA-WY-Z]+");
+        return identifier.matches("[a-zA-Z]+");
     }
 
-    static boolean isKnownIdentifiers(Map<String, BigInteger> varMap, String input) {
+    static boolean isKnownIdentifiers(Map<String, BigDecimal> varMap, String input) {
         for (var identifier : input.split(" ")) {
-            if (identifier.matches("[a-wy-zA-WY-Z]+") && !varMap.containsKey(identifier)) {
+            if (identifier.matches("[a-zA-Z]+") && !varMap.containsKey(identifier)) {
                 return false;
             }
         }

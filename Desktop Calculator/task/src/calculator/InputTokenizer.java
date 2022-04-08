@@ -6,10 +6,10 @@ public class InputTokenizer {
 
     static String tokenize(String input) {
         return input.trim()
-                .replaceAll("[+]", " + ")
+                .replaceAll("[\u002B]", " + ")
                 .replaceAll("[-]", " - ")
-                .replaceAll("[x]", " x ")
-                .replaceAll("[/]", " / ")
+                .replaceAll("[\u00D7]", " * ")
+                .replaceAll("[\u00F7]", " / ")
                 .replaceAll("[\\^]", " ^ ")
                 .replaceAll("[(]", " ( ")
                 .replaceAll("[)]", " ) ")

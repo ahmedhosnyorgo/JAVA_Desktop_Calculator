@@ -21,9 +21,9 @@ public class ExpressionChecker {
             String operation = "+";
             boolean isOperationsSequence = false;
             for (var element : expression.split(" ")) {
-                if (element.matches("[a-wy-zA-WY-Z]+") || element.matches("\\d+")) {
+                if (element.matches("[a-zA-Z]+") || element.matches("\\d*\\.\\d+|\\d+")) {
                     isOperationsSequence = false;
-                } else if (element.matches("[)+-/x(^]")) {
+                } else if (element.matches("[)+-/*(^]")) {
                     if (isOperationsSequence) {
                         return switch (operation) {
                             case "+", "-" -> element.matches("[+-]");

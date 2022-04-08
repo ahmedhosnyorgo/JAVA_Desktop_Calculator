@@ -1,6 +1,6 @@
 package calculator;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.Map;
 
 import static calculator.ExpressionChecker.checkExpression;
@@ -11,9 +11,9 @@ public class Evaluator {
     private Evaluator() {
     }
 
-    static BigInteger evaluate(Map<String, BigInteger> varMap, String input) {
+    static BigDecimal evaluate(Map<String, BigDecimal> varMap, String input) {
         if (checkExpression(input) && checkIdentifiers(input) && isKnownIdentifiers(varMap, input)) {
-            BigInteger result = PostfixCalculator.calc(varMap, input);
+            BigDecimal result = PostfixCalculator.calc(varMap, input);
             if (result != null) {
                 return result;
             } else {

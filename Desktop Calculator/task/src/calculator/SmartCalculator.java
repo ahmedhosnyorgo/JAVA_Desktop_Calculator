@@ -1,14 +1,14 @@
 package calculator;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 import static calculator.Evaluator.evaluate;
 
 public class SmartCalculator {
-    private final HashMap<String, BigInteger> varMap = new HashMap<>();
+    private final HashMap<String, BigDecimal> varMap = new HashMap<>();
 
-    BigInteger calc(String input) {
+    BigDecimal calc(String input) {
         return evaluate(varMap, InputTokenizer.tokenize(input));
     }
 }

@@ -1,6 +1,6 @@
 package calculator;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.Map;
 
 import static calculator.ExpressionChecker.checkExpression;
@@ -10,12 +10,12 @@ public class Assigner {
     private Assigner() {
     }
 
-    static void assignVariable(Map<String, BigInteger> varMap, String input) {
+    static void assignVariable(Map<String, BigDecimal> varMap, String input) {
         String right = input.substring(0, input.indexOf("=")).trim();
         String left = input.substring(input.indexOf("=") + 1).trim();
         if (!right.contains("(") && !right.contains(")") && checkIdentifier(right)
                 && !left.contains("=") && checkExpression(left) && checkIdentifiers(left) && isKnownIdentifiers(varMap, left)) {
-            BigInteger leftResult = PostfixCalculator.calc(varMap, left);
+            BigDecimal leftResult = PostfixCalculator.calc(varMap, left);
             if (leftResult != null) {
                 varMap.put(right, leftResult);
             }

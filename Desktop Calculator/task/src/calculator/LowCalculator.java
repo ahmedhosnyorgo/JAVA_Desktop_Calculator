@@ -1,25 +1,20 @@
 package calculator;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class LowCalculator {
     private LowCalculator() {
     }
 
-    static BigInteger calc(BigInteger fstNum, BigInteger sndNum, String operation) {
-        switch (operation) {
-            case "+":
-                return fstNum.add(sndNum);
-            case "-":
-                return fstNum.subtract(sndNum);
-            case "x":
-                return fstNum.multiply(sndNum);
-            case "/":
-                return fstNum.divide(sndNum);
-            case "^":
-                return fstNum.pow(sndNum.intValue());
-            default:
-                throw new IllegalArgumentException();
-        }
+    static BigDecimal calc(BigDecimal fstNum, BigDecimal sndNum, String operation) {
+        return switch (operation) {
+            case "+" -> fstNum.add(sndNum);
+            case "-" -> fstNum.subtract(sndNum);
+            case "*" -> fstNum.multiply(sndNum);
+            case "/" -> fstNum.divide(sndNum, 2, RoundingMode.DOWN);
+            case "^" -> fstNum.pow(sndNum.intValue());
+            default -> throw new IllegalArgumentException();
+        };
     }
 }
