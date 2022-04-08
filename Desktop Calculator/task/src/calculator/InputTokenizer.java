@@ -8,7 +8,7 @@ public class InputTokenizer {
         return input.trim()
                 .replaceAll("[+]", " + ")
                 .replaceAll("[-]", " - ")
-                .replaceAll("[*]", " * ")
+                .replaceAll("[x]", " x ")
                 .replaceAll("[/]", " / ")
                 .replaceAll("[\\^]", " ^ ")
                 .replaceAll("[(]", " ( ")

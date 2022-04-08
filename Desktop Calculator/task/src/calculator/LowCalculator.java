@@ -12,7 +12,7 @@ public class LowCalculator {
                 return fstNum.add(sndNum);
             case "-":
                 return fstNum.subtract(sndNum);
-            case "*":
+            case "x":
                 return fstNum.multiply(sndNum);
             case "/":
                 return fstNum.divide(sndNum);

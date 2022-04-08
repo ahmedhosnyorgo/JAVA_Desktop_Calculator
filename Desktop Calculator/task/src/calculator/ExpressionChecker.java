@@ -21,26 +21,15 @@ public class ExpressionChecker {
             String operation = "+";
             boolean isOperationsSequence = false;
             for (var element : expression.split(" ")) {
-                if (element.matches("[a-zA-Z]+") || element.matches("\\d+")) {
+                if (element.matches("[a-wy-zA-WY-Z]+") || element.matches("\\d+")) {
                     isOperationsSequence = false;
-                } else if (element.matches("[)+-/*(^]")) {
+                } else if (element.matches("[)+-/x(^]")) {
                     if (isOperationsSequence) {
-                        switch (operation) {
-                            case "+":
-                            case "-":
-                                if (!element.matches("[+-]")) {
-                                    return false;
-                                }
-                                break;
-                            case "(":
-                            case ")":
-                                if (!element.matches("[(-)]")) {
-                                    return false;
-                                }
-                                break;
-                            default:
-                                return false;
-                        }
+                        return switch (operation) {
+                            case "+", "-" -> element.matches("[+-]");
+                            case "(", ")" -> element.matches("[(-)]");
+                            default -> false;
+                        };
                     } else {
                         operation = element;
                         isOperationsSequence = true;

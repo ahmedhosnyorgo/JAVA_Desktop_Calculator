@@ -10,7 +10,7 @@ stages:
   is_completed: true
 - id: 954
   step: 13795
-  is_completed: false
+  is_completed: true
 - id: 955
   step: 13796
   is_completed: false

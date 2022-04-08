@@ -27,7 +27,7 @@ public class PostfixCalculator {
     }
 
     private static void transElement(Map<String, BigInteger> varMap, Deque<String> reorderingStack, Deque<String> postfixStack, String element) {
-        if (element.matches("[a-zA-Z]+") && varMap.containsKey(element)) {
+        if (element.matches("[a-wy-zA-WY-Z]+") && varMap.containsKey(element)) {
             if (varMap.get(element) != null) {
                 BigInteger num = varMap.get(element);
                 transValue(reorderingStack, postfixStack, num);
@@ -35,29 +35,28 @@ public class PostfixCalculator {
         } else if (element.matches("\\d+")) {
             BigInteger num = new BigInteger(element);
             transValue(reorderingStack, postfixStack, num);
-        } else if (element.matches("[)+-/*(^]")) {
+        } else if (element.matches("[)+-/x(^]")) {
             if (isOperationsSequence) {
                 switch (element) {
-                    case "-":
+                    case "-" -> {
                         if (operation.matches("-")) {
                             operation = "+";
                         } else {
                             operation = element;
                         }
-                        break;
-                    case "(":
+                    }
+                    case "(" -> {
                         pushOperation(reorderingStack, postfixStack, operation);
                         operation = element;
                         lastOperation = "(";
-                        break;
-                    case ")":
+                    }
+                    case ")" -> {
                         if (!lastOperation.equals("(")) {
                             operation = element;
                             pushOperation(reorderingStack, postfixStack, operation);
                         }
-                        break;
-                    default:
-                        operation = element;
+                    }
+                    default -> operation = element;
                 }
             } else {
                 if (element.equals(")")) {
@@ -88,38 +87,35 @@ public class PostfixCalculator {
 
     private static void pushOperation(Deque<String> reorderingStack, Deque<String> postfixStack, String operation) {
         List<String> powerPriorities = List.of("^");
-        List<String> multiPriorities = List.of("*", "/", "^");
-        List<String> additivePriorities = List.of("+", "-", "*", "/", "^");
+        List<String> multiPriorities = List.of("x", "/", "^");
+        List<String> additivePriorities = List.of("+", "-", "x", "/", "^");
 
         if (reorderingStack.isEmpty() || reorderingStack.peekLast().equals("(")) {
             reorderingStack.offerLast(operation);
             return;
         }
         switch (operation) {
-            case "-":
-            case "+": //!reorderingStack.isEmpty() ||
+            case "-", "+" -> {      //!reorderingStack.isEmpty() ||
                 while (!reorderingStack.isEmpty() && !reorderingStack.peekLast().equals("(") && additivePriorities.contains(reorderingStack.peekLast())) {
                     postfixStack.offerLast(reorderingStack.pollLast());
                 }
                 reorderingStack.offerLast(operation);
-                break;
-            case "/":
-            case "*":
+            }
+
+            case "/", "x" -> {
                 while (!reorderingStack.isEmpty() && !reorderingStack.peekLast().equals("(") && multiPriorities.contains(reorderingStack.peekLast())) {
                     postfixStack.offerLast(reorderingStack.pollLast());
                 }
                 reorderingStack.offerLast(operation);
-                break;
-            case "^":
+            }
+            case "^" -> {
                 while (!reorderingStack.isEmpty() && !reorderingStack.peekLast().equals("(") && powerPriorities.contains(reorderingStack.peekLast())) {
                     postfixStack.offerLast(reorderingStack.pollLast());
                 }
                 reorderingStack.offerLast(operation);
-                break;
-            case "(":
-                reorderingStack.offerLast(operation);
-                break;
-            case ")":
+            }
+            case "(" -> reorderingStack.offerLast(operation);
+            case ")" -> {
                 while (!reorderingStack.isEmpty()) {
                     if (Objects.equals(reorderingStack.peekLast(), "(")) {
                         reorderingStack.pollLast();
@@ -128,9 +124,9 @@ public class PostfixCalculator {
                         postfixStack.offerLast(reorderingStack.pollLast());
                     }
                 }
-                break;
-            default:
-                break;
+            }
+            default -> {
+            }
         }
     }
 
@@ -148,7 +144,7 @@ public class PostfixCalculator {
         while (!postfixStack.isEmpty()) {
             if (postfixStack.peek().matches("-*\\d+")) {
                 answerStack.offerLast(postfixStack.pollFirst());
-            } else if (postfixStack.peek().matches("[+-/*^]")) {
+            } else if (postfixStack.peek().matches("[+-/x^]")) {
                 BigInteger sndNum = new BigInteger(Objects.requireNonNull(answerStack.pollLast()));
                 BigInteger fstNum = new BigInteger(Objects.requireNonNull(answerStack.pollLast()));
                 BigInteger result = LowCalculator.calc(fstNum, sndNum, Objects.requireNonNull(postfixStack.pollFirst()));
