@@ -92,7 +92,7 @@ files:
 - name: src/calculator/InputTokenizer.java
   visible: true
   learner_created: true
-feedback_link: https://hyperskill.org/projects/191/stages/953/implement#comment
+feedback_link: https://hyperskill.org/learn/step/13794#comment
 status: Solved
 feedback:
   message: Congratulations!

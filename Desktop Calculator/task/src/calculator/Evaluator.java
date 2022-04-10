@@ -13,7 +13,8 @@ public class Evaluator {
 
     static BigDecimal evaluate(Map<String, BigDecimal> varMap, String input) {
         if (checkExpression(input) && checkIdentifiers(input) && isKnownIdentifiers(varMap, input)) {
-            BigDecimal result = PostfixCalculator.calc(varMap, input);
+            PostfixCalculator postfixCalculator = new PostfixCalculator();
+            BigDecimal result = postfixCalculator.calc(varMap, input);
             if (result != null) {
                 return result;
             } else {

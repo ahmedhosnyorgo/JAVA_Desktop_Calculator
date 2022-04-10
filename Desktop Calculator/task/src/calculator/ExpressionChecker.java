@@ -23,7 +23,7 @@ public class ExpressionChecker {
             for (var element : expression.split(" ")) {
                 if (element.matches("[a-zA-Z]+") || element.matches("\\d*\\.\\d+|\\d+")) {
                     isOperationsSequence = false;
-                } else if (element.matches("[)+-/*(^]")) {
+                } else if (element.matches("[)+-/*(&^]")) {
                     if (isOperationsSequence) {
                         return switch (operation) {
                             case "+", "-" -> element.matches("[+-]");
@@ -40,7 +40,7 @@ public class ExpressionChecker {
         return true;
     }
 
-    private static boolean checkParenthesesNumber(String expression) {
+     static boolean checkParenthesesNumber(String expression) {
         var openParenthesis = Arrays.stream(expression.split(" ")).filter(e -> e.equals("(")).count();
         var closeParenthesis = Arrays.stream(expression.split(" ")).filter(e -> e.equals(")")).count();
         return openParenthesis == closeParenthesis;

@@ -15,7 +15,8 @@ public class Assigner {
         String left = input.substring(input.indexOf("=") + 1).trim();
         if (!right.contains("(") && !right.contains(")") && checkIdentifier(right)
                 && !left.contains("=") && checkExpression(left) && checkIdentifiers(left) && isKnownIdentifiers(varMap, left)) {
-            BigDecimal leftResult = PostfixCalculator.calc(varMap, left);
+            PostfixCalculator postfixCalculator = new PostfixCalculator();
+            BigDecimal leftResult = postfixCalculator.calc(varMap, left);
             if (leftResult != null) {
                 varMap.put(right, leftResult);
             }

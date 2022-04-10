@@ -17,8 +17,6 @@ z.idea/modules/Desktop Calculator/task/build/test-results/Desktop_Calculator.Des
 ».idea/modules/Desktop Calculator/task/build/generated/sources/annotationProcessor/java/Desktop_Calculator.Desktop_Calculator-task-build-generated-sources-annotationProcessor-java.main.iml,7\4\748dd4aa49be9cc444e6506b3e5c85d52e3fc51f
 Ô
 £.idea/modules/Desktop Calculator/task/build/generated/sources/headers/java/Desktop_Calculator.Desktop_Calculator-task-build-generated-sources-headers-java.test.iml,1\b\1bd8a74d88dceffee4c3726d619fbb82e111823e
-n
->Desktop Calculator/Putting two and two together/task-info.yaml,c\8\c8a2176db0e21e22a7abb484c4bdc5d23d3b2935
 ¯
 .idea/modules/Desktop Calculator/task/build/classes/java/Desktop_Calculator.Desktop_Calculator-task-build-classes-java.main.iml,9\8\984c7202d1d4fe3d6cd33c0e4bfb4e76f829d590
 ì
@@ -44,13 +42,11 @@ c
 3.idea/modules/util/Desktop_Calculator.util.main.iml,5\a\5ab87c82a7c24176bc3fd7b717a3e3de3ed1b210
 ‰
 Y.idea/modules/Desktop Calculator/task/Desktop_Calculator.Desktop_Calculator-task.main.iml,a\8\a82e2383295904ac8e0145e96aedc40efa34947e
-`
-0Desktop Calculator/Making buttons/task-info.yaml,6\1\61c98597bcfafd55064076360ae1af90ff8a3898
-e
-5Desktop Calculator/Operator precedence/task-info.yaml,9\9\997e74fb57c829bb760552443a3aef515becd1e3
-d
-4Desktop Calculator/task/src/calculator/Assigner.java,d\9\d92573be462da0ce57ed28f547ab0e3db5558bdf
-m
-=Desktop Calculator/task/src/calculator/ExpressionChecker.java,4\a\4a80d28a6b126af251c612e0a9c97642ce20c8c4
-m
-=Desktop Calculator/task/src/calculator/IdentifierChecker.java,9\6\96a231121a120cc7ce2c838f0fe428908d156b0f
+^
+.Desktop Calculator/Advanced features/task.html,3\9\39987b3e1c3634bc7547d7052716887dbdbd88ff
+j
+:Desktop Calculator/Advanced features/task-remote-info.yaml,2\4\24aba120b92967f57f0b5b0d7eecded81c7eb65b
+?
+settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
+<
+build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
